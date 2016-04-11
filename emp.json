@@ -1,0 +1,15 @@
+{
+    "nextpage": "main",
+
+    "val": [{
+        "name": "Nataraj",
+        "gender": "M",
+        "age": 33,
+        "skillset": ["javascript", "css", "html"]
+}, {
+        "name": "Priya",
+        "gender": "F",
+        "age": 33,
+        "skillset": ["javascript", "css", "html"]
+}]
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EMS using Bootstrap and Jquery SPA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    
+    <style>
+        body
+        {
+          margin-top:10px;   
+          padding:5px;
+        }
+        input{
+            margin-top:3px;  
+        }
+
+    </style>
+    <script>
+        var pageId=
+            {
+            "NAVBAR":"navBarID",
+            "LOGIN":"mywidget",
+            "LISTEMP":"userDetail",
+            "PROGRESSBAR":"progressId",
+            "TABLEROW":"listBodyId",
+            "MESSAGE":"divAlertId"
+            };
+        var EMS=function(){};
+        var userData={'username':'',  'val':[] };
+        //Login Function
+        EMS.prototype.logIn = function () {
+          $("#signFormId").submit(function (event) {
+            alert("Handler for .submit() called.");
+            event.preventDefault();
+            var data = {
+                emailId: $('#emailId').val(),
+                psswd: $('#psswd').val(),
+                remMe: $('#remMe').val()
+            };
+            console.log(data);
+            
+              $.getJSON( "emp.json",function(data){
+                  userData.val=data.val;
+                  console.log( "JSON Data: " + data );
+              });
+
+         });
+        }
+
+    </script>
+</head>
+
+<body>
+<nav class="navbar navbar-default" id="navBarID">
+    <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="#">EMS</a></div>
+         <button type="button" class="btn btn-priamry navbar-right navbar-btn hidden" id="logOutId" name="logOutId">Sign Out</button>
+                                                           
+    </div>
+</nav>   
+<div class="container">
+    <div id="mywidget" class="hidden">
+        <div class="alert alert-success alert-dismissible hidden" role="alert" id="divAlertId">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>Employee updated successfully</strong>
+        </div>
+        <form class="form-signin" id="signFormId">
+            <h2> Please sign in</h2>
+            <div class="input-group">
+                <input type="email" id="emailId" name="emailId" maxlength="50" placeholder="Enter you email" required autofocus class="form-control" />
+            </div>
+            <div class="input-group">
+                <input type="password" id="psswd" name="psswd" maxlength="50" placeholder="Passowrd" required class="form-control" />
+            </div>
+            <div class="input-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="remMe" id="remMe" value="Y"> Remember me </label>
+                </div>
+            </div>
+            <div class="input-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" id="signInId" name="signInId">Sign In</button>
+            </div>
+        </form>
+    </div>
+    <div class="progress hidden" id="progressId" >
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+            <span class="sr-only">45% Complete</span>
+        </div>
+    </div>
+    
+    	
+	<br />
+    <div id="userDetail">
+        <h1 class="center">Employee Detail</h1>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>framework</th>
+                    <th>Action</th>
+				</tr>
+			</thead>
+            <tbody id="listBodyId">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Skillset</td>
+                <td>
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default" id="delId">Delete</button>
+                  <button type="button" class="btn btn-primary" id="updId">Update</button>
+                  
+                </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+	
+    
+</div>
+    
+</body>
+<script>
+            var lc=new EMS();
+            $( document ).ready(lc.logIn());
+</script>
+
+</html>
